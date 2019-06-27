@@ -1,6 +1,7 @@
+import { Component, Input } from "@angular/core";
 import { ComponentFixture, TestBed } from "@angular/core/testing";
 import { HeroesComponent } from "./heroes.component";
-import { NO_ERRORS_SCHEMA } from "@angular/core";
+import { Hero } from "../hero";
 import { HeroService } from "../hero.service";
 import { of } from "rxjs";
 
@@ -8,6 +9,14 @@ describe("HeroesComponent (shallow test)", () => {
   let fixture: ComponentFixture<HeroesComponent>;
   let mockHeroService;
   let HEROES: any;
+
+  @Component({
+    selector: "app-hero",
+    template: "<div></div>"
+  })
+  class FakeHeroComponent {
+    @Input() hero: Hero;
+  }
 
   beforeEach(() => {
     HEROES = [
@@ -21,9 +30,8 @@ describe("HeroesComponent (shallow test)", () => {
       "deleteHero"
     ]);
     TestBed.configureTestingModule({
-      declarations: [HeroesComponent],
-      providers: [{ provide: HeroService, useValue: mockHeroService }],
-      schemas: [NO_ERRORS_SCHEMA]
+      declarations: [HeroesComponent, FakeHeroComponent],
+      providers: [{ provide: HeroService, useValue: mockHeroService }]
     });
     fixture = TestBed.createComponent(HeroesComponent);
   });
