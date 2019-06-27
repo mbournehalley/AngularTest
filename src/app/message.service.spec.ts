@@ -17,7 +17,6 @@ describe("MessageService", () => {
   it("should remove all message when clear is called", () => {
     service = new MessageService();
     service.add("message 1");
-
     service.clear();
     expect(service.messages.length).toBe(0);
   });
